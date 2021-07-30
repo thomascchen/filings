@@ -1,4 +1,3 @@
 class Filing < ApplicationRecord
-  validates_presence_of :data
-  validates_presence_of :url
+  validates_presence_of :data, :url
 end
