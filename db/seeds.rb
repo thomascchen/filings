@@ -26,26 +26,44 @@ filing_urls.each do |url|
   xml_string = Net::HTTP.get(uri)
   xml_document = Nokogiri::XML(xml_string.squish)
   
-  Filing.create!(url: url, data: xml_document)
+  # Filing.create!(url: url, data: xml_document)
   
-  filer_fragment = Nokogiri::XML.fragment(xml_document.xpath("//irs:Return//irs:ReturnHeader//irs:Filer", "irs" => "http://www.irs.gov/efile"))
-  filer_attributes = {
-    ein: filer_fragment.at(".//EIN").text.squish,
-    name: filer_fragment.at(".//*[contains(name(), 'Name')]").text.squish,
-    address: filer_fragment.xpath(".//*[starts-with(name(), 'AddressLine')]").text.squish,
-    city: filer_fragment.at(".//*[starts-with(name(),'City')]").text.squish,
-    state: filer_fragment.at(".//*[starts-with(name(),'State')]").text.squish,
-    zip: filer_fragment.at(".//*[starts-with(name(),'ZIP')]").text.squish
-  }
-  Filer.create_with(
-    name: filer_attributes[:name],
-    address: filer_attributes[:address],
-    city: filer_attributes[:city],
-    state: filer_attributes[:state],
-    zip: filer_attributes[:zip]
-  ).find_or_create_by(ein: filer_attributes[:ein])
+  # filer_fragment = Nokogiri::XML.fragment(xml_document.xpath("//irs:Return//irs:ReturnHeader//irs:Filer", "irs" => "http://www.irs.gov/efile"))
+  # filer_attributes = {
+  #   ein: filer_fragment.at(".//EIN").text.squish,
+  #   name: filer_fragment.at(".//*[contains(name(), 'Name')]").text.squish,
+  #   address: filer_fragment.xpath(".//*[starts-with(name(), 'AddressLine')]").text.squish,
+  #   city: filer_fragment.at(".//*[starts-with(name(),'City')]").text.squish,
+  #   state: filer_fragment.at(".//*[starts-with(name(),'State')]").text.squish,
+  #   zip: filer_fragment.at(".//*[starts-with(name(),'ZIP')]").text.squish
+  # }
+  # Filer.create_with(
+  #   name: filer_attributes[:name],
+  #   address: filer_attributes[:address],
+  #   city: filer_attributes[:city],
+  #   state: filer_attributes[:state],
+  #   zip: filer_attributes[:zip]
+  # ).find_or_create_by(ein: filer_attributes[:ein])
 
-  puts filer_attributes
+  # puts filer_attributes
+
+  receivers = xml_document.xpath("//irs:Return//irs:ReturnData//irs:IRS990ScheduleI/irs:RecipientTable", "irs" => "http://www.irs.gov/efile")
+  results = []
+  receivers.each do |receiver|
+    fragment = Nokogiri::XML.fragment(receiver)
+
+    receiver_attributes = {
+      ein: fragment.at(".//*[contains(name(), 'EIN')]")&.text&.squish,
+      name: fragment.at(".//*[contains(name(),'Name')]")&.text&.squish,
+      address: fragment.xpath(".//*[starts-with(name(), 'AddressLine')]")&.text&.squish,
+      city: fragment.at(".//*[starts-with(name(),'City')]")&.text&.squish,
+      state: fragment.at(".//*[starts-with(name(),'State')]")&.text&.squish,
+      zip: fragment.at(".//*[starts-with(name(),'ZIP')]")&.text&.squish
+    }
+
+    results << receiver_attributes
+  end
+  puts results.sort_by { |x| x[:name] }.select { |x| x[:name] == "Pasadena Conservatory of Music" || x[:name] == "Doctors Without Borders" }
 end
 
 puts "Filings seeded!"
