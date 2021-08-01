@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_01_015943) do
+ActiveRecord::Schema.define(version: 2021_08_01_170156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,8 @@ ActiveRecord::Schema.define(version: 2021_08_01_015943) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "filer_id"
     t.bigint "filer_address_id"
+    t.integer "tax_year", null: false
+    t.boolean "amended", default: false
     t.index ["filer_address_id"], name: "index_filings_on_filer_address_id"
     t.index ["filer_id"], name: "index_filings_on_filer_id"
   end
