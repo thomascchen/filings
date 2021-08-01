@@ -10,28 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_30_035654) do
+ActiveRecord::Schema.define(version: 2021_07_31_212520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "addresses", force: :cascade do |t|
+    t.string "street", null: false
+    t.string "city", null: false
+    t.string "state", null: false
+    t.string "zip", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "filers", force: :cascade do |t|
-    t.integer "ein"
-    t.string "name"
-    t.string "address"
-    t.string "city"
-    t.string "state"
-    t.string "zip"
+    t.integer "ein", null: false
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["ein"], name: "index_filers_on_ein", unique: true
   end
 
   create_table "filings", force: :cascade do |t|
-    t.string "url"
-    t.xml "data"
+    t.string "url", null: false
+    t.xml "xml", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "filer_id"
+    t.bigint "filer_address_id"
+    t.index ["filer_address_id"], name: "index_filings_on_filer_address_id"
+    t.index ["filer_id"], name: "index_filings_on_filer_id"
   end
 
+  add_foreign_key "filings", "addresses", column: "filer_address_id"
 end
