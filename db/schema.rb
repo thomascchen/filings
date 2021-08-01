@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_31_212520) do
+ActiveRecord::Schema.define(version: 2021_08_01_011215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,14 @@ ActiveRecord::Schema.define(version: 2021_07_31_212520) do
     t.bigint "filer_address_id"
     t.index ["filer_address_id"], name: "index_filings_on_filer_address_id"
     t.index ["filer_id"], name: "index_filings_on_filer_id"
+  end
+
+  create_table "receivers", force: :cascade do |t|
+    t.string "ein", null: false
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ein"], name: "index_receivers_on_ein", unique: true
   end
 
   add_foreign_key "filings", "addresses", column: "filer_address_id"
