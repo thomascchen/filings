@@ -4,6 +4,7 @@ RSpec.describe Filer, type: :model do
   describe "associations" do
     it { should have_many(:filings) }
     it { should have_many(:addresses).through(:filings).source(:filer_address).conditions("distinct") }
+    it { should have_many(:awards).through(:filings).conditions("distinct") }
   end
 
   describe "validations" do

@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Address, type: :model do
   describe "associations" do
+    it { should have_many(:awards).with_foreign_key(:receiver_address_id) }
+    it { should have_many(:receivers).through(:awards).conditions("distinct") }
     it { should have_many(:filings).with_foreign_key(:filer_address_id) }
     it { should have_many(:filers).through(:filings).conditions("distinct") }
   end

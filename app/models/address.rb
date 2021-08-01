@@ -1,4 +1,6 @@
 class Address < ApplicationRecord
+  has_many :awards, foreign_key: :receiver_address_id
+  has_many :receivers, -> { distinct }, through: :awards
   has_many :filings, foreign_key: :filer_address_id
   has_many :filers, -> { distinct }, through: :filings
 
