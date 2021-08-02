@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Filings", type: :request do
   describe "GET #index" do
     it "returns filings" do
-      allow_any_instance_of(Award).to receive(:gbp_current_rate).and_return(1)
+      # allow_any_instance_of(Award).to receive(:gbp_current_rate).and_return(1)
 
       filer1 = create(:filer, name: "Cool Filer 1")
       filing1 = create(:filing, tax_year: 2021, filer: filer1)
@@ -127,7 +127,7 @@ RSpec.describe "Filings", type: :request do
           "type" => "awards",
           "attributes" => {
             "cash_amount" => award1.cash_amount,
-            "cash_amount_gbp" => award1.cash_amount,
+            # "cash_amount_gbp" => award1.cash_amount,
             "purpose" => award1.purpose
           },
           "relationships" => {
@@ -144,7 +144,7 @@ RSpec.describe "Filings", type: :request do
           "type" => "awards",
           "attributes" => {
             "cash_amount" => award2.cash_amount,
-            "cash_amount_gbp" => award2.cash_amount,
+            # "cash_amount_gbp" => award2.cash_amount,
             "purpose" => award2.purpose
           },
           "relationships" => {
