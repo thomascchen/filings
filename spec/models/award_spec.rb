@@ -6,7 +6,6 @@ RSpec.describe Award, type: :model do
     it { should belong_to(:filer) }
     it { should belong_to(:filing) }
     it { should belong_to(:receiver) }
-    it { should belong_to(:receiver_address).class_name("Address") }
   end
 
   describe "validations" do

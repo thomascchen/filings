@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Filings", type: :request do
-  describe "GET /index" do
+  describe "GET #index" do
     it "returns filings" do
       filer1 = create(:filer, name: "Cool Filer 1")
       filing1 = create(:filing, tax_year: 2021, filer: filer1)

@@ -8,4 +8,9 @@ class Receiver < ApplicationRecord
   validates :city, presence: true
   validates :state, presence: true
   validates :zip, presence: true
+
+  def self.filtered_by_state(state)
+    return all unless state
+    where(state: state)
+  end
 end
