@@ -68,5 +68,7 @@ RSpec.describe "Receivers", type: :request do
         )
       end
     end
+
+    it "handles errors"
   end
 end

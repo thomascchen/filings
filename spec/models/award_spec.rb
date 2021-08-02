@@ -13,4 +13,12 @@ RSpec.describe Award, type: :model do
     it { should validate_presence_of(:purpose) }
     it { should validate_numericality_of(:cash_amount) }
   end
+  
+  describe "#cash_amount_gbp" do
+    it "should be tested :)"
+  end
+
+  describe "#gbp_current_rate" do
+    it "should be tested :)"
+  end
 end

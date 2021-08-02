@@ -158,5 +158,7 @@ RSpec.describe "Filings", type: :request do
         }
       )
     end
+
+    it "handles errors"
   end
 end
