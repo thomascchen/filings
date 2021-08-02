@@ -1,8 +1,11 @@
 class Receiver < ApplicationRecord
   has_many :awards
-  has_many :filings, through: :awards
-  has_many :addresses, -> { distinct }, through: :awards, source: :receiver_address
+  has_many :filings, -> { distinct }, through: :awards
 
-  validates :ein, uniqueness: true, allow_nil: true # There were a few receivers with no EIN
+  # There were a few receivers with no EIN
   validates :name, presence: true
+  validates :street, presence: true
+  validates :city, presence: true
+  validates :state, presence: true
+  validates :zip, presence: true
 end

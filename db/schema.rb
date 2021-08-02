@@ -10,19 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_01_170156) do
+ActiveRecord::Schema.define(version: 2021_08_01_234357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "addresses", force: :cascade do |t|
-    t.string "street", null: false
-    t.string "city", null: false
-    t.string "state", null: false
-    t.string "zip", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
 
   create_table "awards", force: :cascade do |t|
     t.integer "cash_amount", null: false
@@ -30,12 +21,10 @@ ActiveRecord::Schema.define(version: 2021_08_01_170156) do
     t.bigint "filer_id"
     t.bigint "filing_id"
     t.bigint "receiver_id"
-    t.bigint "receiver_address_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["filer_id"], name: "index_awards_on_filer_id"
     t.index ["filing_id"], name: "index_awards_on_filing_id"
-    t.index ["receiver_address_id"], name: "index_awards_on_receiver_address_id"
     t.index ["receiver_id"], name: "index_awards_on_receiver_id"
   end
 
@@ -44,7 +33,10 @@ ActiveRecord::Schema.define(version: 2021_08_01_170156) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["ein"], name: "index_filers_on_ein", unique: true
+    t.string "street", null: false
+    t.string "city", null: false
+    t.string "state", null: false
+    t.string "zip", null: false
   end
 
   create_table "filings", force: :cascade do |t|
@@ -53,10 +45,8 @@ ActiveRecord::Schema.define(version: 2021_08_01_170156) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "filer_id"
-    t.bigint "filer_address_id"
     t.integer "tax_year", null: false
     t.boolean "amended", default: false
-    t.index ["filer_address_id"], name: "index_filings_on_filer_address_id"
     t.index ["filer_id"], name: "index_filings_on_filer_id"
   end
 
@@ -65,9 +55,10 @@ ActiveRecord::Schema.define(version: 2021_08_01_170156) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["ein"], name: "index_receivers_on_ein", unique: true
+    t.string "street", null: false
+    t.string "city", null: false
+    t.string "state", null: false
+    t.string "zip", null: false
   end
 
-  add_foreign_key "awards", "addresses", column: "receiver_address_id"
-  add_foreign_key "filings", "addresses", column: "filer_address_id"
 end
