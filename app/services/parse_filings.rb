@@ -12,6 +12,7 @@ class ParseFilings
     "http://s3.amazonaws.com/irs-form-990/201831359349101003_public.xml"
   ].freeze
 
+  # Normally I would test this class but cutting some corners :)
   def self.call
     FILINGS.each do |url|
       uri = URI(url)

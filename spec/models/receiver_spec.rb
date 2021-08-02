@@ -9,4 +9,8 @@ RSpec.describe Receiver, type: :model do
   describe "validations" do
     it { should validate_presence_of(:name) }
   end
+
+  describe ".filtered_by_state" do
+    it "should be tested :)" 
+  end
 end
