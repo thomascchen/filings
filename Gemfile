@@ -30,6 +30,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'jsonapi-serializer'
 gem 'nokogiri'
 gem 'pry-rails'
+gem 'rack-cors'
 gem 'rexml'
 
 group :development, :test do
