@@ -10,7 +10,7 @@ class Receiver < ApplicationRecord
   validates :zip, presence: true
 
   def self.filtered_by_state(state)
-    return all unless state
+    return all unless state.present?
     where(state: state)
   end
 end
