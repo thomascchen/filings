@@ -1,6 +1,4 @@
-class AwardSerializer
-  include JSONAPI::Serializer
-
+class AwardSerializer < BaseSerializer
   set_type :awards
 
   attributes :cash_amount, :purpose

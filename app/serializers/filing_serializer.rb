@@ -1,6 +1,4 @@
-class FilingSerializer
-  include JSONAPI::Serializer
-
+class FilingSerializer < BaseSerializer
   set_type :filings
 
   attributes :tax_year, :amended
