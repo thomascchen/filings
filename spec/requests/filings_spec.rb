@@ -27,7 +27,7 @@ RSpec.describe "Filings", type: :request do
           "id" => filing1.id.to_s,
           "type" => "filings",
           "attributes" => {
-            "tax_year" => 2021,
+            "tax-year" => 2021,
             "amended" => filing1.amended
           },
           "relationships" => {
@@ -51,7 +51,7 @@ RSpec.describe "Filings", type: :request do
           "id" => filing2.id.to_s,
           "type" => "filings",
           "attributes" => {
-            "tax_year" => 2020,
+            "tax-year" => 2020,
             "amended" => filing2.amended
           },
           "relationships" => {
@@ -126,7 +126,7 @@ RSpec.describe "Filings", type: :request do
           "id" => award1.id.to_s,
           "type" => "awards",
           "attributes" => {
-            "cash_amount" => award1.cash_amount,
+            "cash-amount" => award1.cash_amount,
             # "cash_amount_gbp" => award1.cash_amount,
             "purpose" => award1.purpose
           },
@@ -143,7 +143,7 @@ RSpec.describe "Filings", type: :request do
           "id" => award2.id.to_s,
           "type" => "awards",
           "attributes" => {
-            "cash_amount" => award2.cash_amount,
+            "cash-amount" => award2.cash_amount,
             # "cash_amount_gbp" => award2.cash_amount,
             "purpose" => award2.purpose
           },
